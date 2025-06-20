@@ -1,0 +1,184 @@
+/* Global */
+:root {
+  /* Colors */
+  --color-white: #ffffff;
+  --color-black: #050a13;
+  --color-blue: #03e8f9;
+  --color-lightblue: #87cefa;
+  --color-lightskyblue: #e0ffff;
+  --color-skybule: #e1f5fe;
+  --color-gray: #1b1e26;
+}
+
+/* 모든 요소의 기본 여백 제거 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* HTML과 Body의 기본 설정 */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--color-black);
+  filter: blur(80%);
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  width: 70px;
+  height: 70px;
+  font-size: 22px;
+  margin: 5px;
+  border-radius: 20px;
+
+  border: 1px solid var(--color-skybule);
+  background-color: var(--color-white);
+  transition: all 100ms ease-in;
+}
+
+button:hover {
+  background-color: var(--color-lightskyblue);
+  transform: scale(1.1);
+}
+
+button:active {
+  background-color: var(--color-lightskyblue);
+  filter: brightness(85%);
+}
+
+.container {
+  position: relative;
+  height: 555px;
+  width: 355px;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    from var(--a),
+    #03e8f9,
+    #e0ffff,
+    #87cefa,
+    #1e90ff,
+    #40e0d0,
+    #4169e1,
+    #00bfff
+  );
+
+  border-radius: 20px;
+  animation: rotating 3s linear infinite;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    from var(--a),
+    #03e8f9,
+    #e0ffff,
+    #87cefa,
+    #1e90ff,
+    #40e0d0,
+    #4169e1,
+    #00bfff
+  );
+  border-radius: 20px;
+  animation: rotating 3s linear infinite;
+  filter: blur(40px);
+  opacity: 0.75;
+}
+
+.container span {
+  position: absolute;
+  inset: 4px;
+  background-color: var(--color-black);
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.calculator-container {
+  border-radius: 10px;
+  height: 550px;
+  width: 347px;
+}
+
+.display {
+  text-align: right;
+  flex: 1;
+  font-size: 38px;
+  margin: 25px 20px;
+  padding: 10px 15px;
+  color: var(--color-white);
+  border: 3px solid;
+  border-radius: 10px;
+  animation: 5s infinite alternate border-rotating;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+}
+
+.button.operator {
+  font-size: 28px;
+}
+
+.zero {
+  width: calc(85% / 2);
+  min-width: 43%;
+}
+
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes rotating {
+  0% {
+    --a: 0deg;
+  }
+  100% {
+    --a: 360deg;
+  }
+}
+
+@keyframes border-rotating {
+  0% {
+    border-color: #03e8f9;
+  }
+  15% {
+    border-color: #e0ffff;
+  }
+  30% {
+    border-color: #87cefa;
+  }
+  50% {
+    border-color: #1e90ff;
+  }
+  65% {
+    border-color: #40e0d0;
+  }
+  80% {
+    border-color: #4169e1;
+  }
+  100% {
+    border-color: #00bfff;
+  }
+}
