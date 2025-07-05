@@ -64,8 +64,10 @@ const handleDot = () => {
 const checkDisplayNum = (number) => {
   if (display.innerText === '0' && !hasDot()) {
     display.innerText = number;
-  } else {
+  } else if (display.innerText.length < 13) {
     display.innerText += number;
+  } else if (display.innerText.length >= 13) {
+    display.innerText = 'Error';
   }
 };
 
