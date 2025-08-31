@@ -3,6 +3,7 @@ const display = document.querySelector('.display');
 let firstOperand = '';
 let operator = '';
 let isNextNum = false;
+let isError = false;
 
 window.onload = function () {
   const buttons = document.querySelectorAll('button');
@@ -37,6 +38,7 @@ const onclickBtn = (e) => {
 
 // 숫자 버튼 처리
 const handleNumber = (number) => {
+  if (isError) return;
   if (isNextNum) {
     display.innerText = number;
     isNextNum = false;
@@ -51,9 +53,7 @@ const hasDot = () => {
 };
 
 const handleDot = () => {
-  if (display.innerText === 'Error') {
-    return;
-  }
+  if (isError) return;
 
   if (!hasDot()) {
     display.innerText += '.';
@@ -68,14 +68,13 @@ const checkDisplayNum = (number) => {
     display.innerText += number;
   } else if (display.innerText.length >= 13) {
     display.innerText = 'Error';
+    isError = true;
   }
 };
 
 // 연산자 버튼 처리
 const handleOperator = (operatorValue) => {
-  if (display.innerText === 'Error') {
-    return;
-  }
+  if (isError) return;
 
   if (firstOperand === '') {
     firstOperand = display.innerText;
@@ -87,15 +86,11 @@ const handleOperator = (operatorValue) => {
 
   operator = operatorValue;
   isNextNum = true;
-
-  // console.log(`first Operand: ${firstOperand}, operator: ${operator}`);
 };
 
 // '=' 버튼 처리
 const handleEqual = () => {
-  if (display.innerText === 'Error') {
-    return;
-  }
+  if (isError) return;
   if (firstOperand !== '' && operator !== '') {
     const secondOperand = display.innerText;
     const result = calculate(firstOperand, operator, secondOperand);
@@ -114,11 +109,11 @@ const handleClear = () => {
 
 // function 버튼 처리
 const handleFunction = (functionValue) => {
+  if (isError) return;
+
   let currentValue = parseFloat(display.innerText);
 
-  if (isNaN(currentValue)) {
-    return;
-  }
+  if (isNaN(currentValue)) return;
 
   let result;
   switch (functionValue) {
@@ -139,6 +134,7 @@ const reset = () => {
   firstOperand = '';
   operator = '';
   isNextNum = false;
+  isError = false;
 };
 
 // 계산 함수
